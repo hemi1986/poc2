@@ -1,7 +1,9 @@
-FROM node:12-alpine
+FROM node:14.17.6-alpine
 
 WORKDIR /app
-COPY . .
+COPY package*.json ./
 RUN npm install
-RUN npm build
-CMD npm start:prod
+COPY . .
+RUN npm run build
+
+ENTRYPOINT [ "node", "dist/main.js" ]
